@@ -1,0 +1,30 @@
+.elementContainer  {
+  display: inline-block;
+  margin-left: 10px;
+  float: right;
+  width:45%;
+  height:inherit;
+  vertical-align: middle;
+  background-color: inherit;
+}
+
+.labelContainer {
+  display: inline-block;
+  float : left;
+  height : auto;
+  width: 45%;
+  background-color: #F8FFFF;
+  border: 1px;
+  border-color : #D1D0CE;
+  border-style : solid;
+  border-radius: 5px;
+  padding : 5px;
+  margin-right: 10px;
+}
+
+.mainContainer{
+  display: inline-block;
+  height : 90%;
+  width : 90%;
+  padding : 5px;
+}
