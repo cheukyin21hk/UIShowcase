@@ -21,17 +21,37 @@ class ShowcaseContainer extends React.Component {
 
   constructor(){
     super();
+    this.state={displayDetails:true};
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+
+  toggleDisplay(){
+    console.log(this.state.displayDetails);
+    this.setState((prevState,props)=>{
+      return {displayDetails : (!prevState.displayDetails)};
+    });
+  }
+
+  printDescription(){
+      if(this.state.displayDetails){
+        return (
+          <div className={s.labelContainer}>
+                <button onClick={this.toggleDisplay}>Close</button>
+                <pre>Name : {this.props.name}</pre>
+                <pre>Description : {this.props.description}</pre>
+                <pre>Syntax : {this.props.syntax}</pre>
+                <pre>Data : {this.props.data}</pre>
+          </div>
+              );
+      }else{
+        return (<div className={s.labelContainer}><button onClick={this.toggleDisplay}>Open</button> {this.props.name} description</div>);
+      }
   }
 
   render() {
     return (
       <div className={s.mainContainer} >
-        <div className={s.labelContainer}>
-          <pre>Name : {this.props.name}</pre>
-          <pre>Description : {this.props.description}</pre>
-          <pre>Syntax : {this.props.syntax}</pre>
-          <pre>Data : {this.props.data}</pre>
-        </div>
+          {this.printDescription()}
         <div className={s.elementContainer}>
           {this.props.children}
         </div>
