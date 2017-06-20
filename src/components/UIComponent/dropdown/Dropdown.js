@@ -3,34 +3,32 @@ import React from 'react';
 class Dropdown extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state={
+			value: ""
+		};
 	};
 
-	render() {
-		return (
-			<div>
-			<ItemList options={this.props.options} />
-			</div>
-			);
-	};
-}
+		test(){
+			console.log("test");
+		}
 
-class ItemList extends React.Component{
+	 prepareOptionsList(){
+		 const values = this.props.options;
+		 var items = values.map(function(value,index){
+			 return <option value={value.code} key={value.code.toString()}>{value.name}</option>
+		 })
+		 return items;
+	 }
 
 	render(){
 		return(
-			<select>
+			<select value={this.props.text}>
 			{this.prepareOptionsList()}
 			</select>
 
 			);
 	};
 
-	prepareOptionsList(){
-		const values = this.props.options;
-		var items = values.map((value)=>
-			<option value={value.code} key={value.code.toString()}>{value.name}</option>)
-		return items;
-	}
 }
 
 export default Dropdown;

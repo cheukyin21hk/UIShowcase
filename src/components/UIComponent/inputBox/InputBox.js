@@ -5,13 +5,25 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 class InputBox extends React.Component {
 	constructor(props) {
 		super(props);
+    this.state ={
+      value: ""
+    };
+		this.handleOnChange = this.handleOnChange.bind(this);
 	};
+
+	test(){
+		console.log("test");
+	}
+
+	handleOnChange(e){
+		this.props.handleChange(e);
+	}
 
 	render() {
 		return (
 			<div>
          <label className={style.label}>{this.props.label}</label>
-			   <input type="text"/>
+			   <input name={this.props.name} value={this.props.text} onChange={this.handleOnChange} type="text"/>
 			</div>
 			);
 	};
