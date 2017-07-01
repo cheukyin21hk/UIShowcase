@@ -32,6 +32,14 @@ var dropdownOptions=[{
 	"name": "E"
 }];
 
+/*
+Todo :
+2. resolve the state share within all requests(solution : multiple )
+3. get the dropdown option from container component.
+4. separate the presentation component.
+
+*/
+
 class ComponentForm extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -39,40 +47,60 @@ class ComponentForm extends React.Component {
 
 	constructor(props){
 		super(props);
-		this.handleChangeForForm = this.handleChangeForForm.bind(this);
+		console.log("constructor called");
 		this.handleSimpleValueChange = this.handleSimpleValueChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		var formFields = new Object();
 		this.state={
 			name : "input",
-			value : new Object()
+			result : "The result value will show here.",
+			value : formFields
 		};
 
 	}
 
-	handleChangeForForm(event){
+	handleSubmit(event) {
+		var resultValue = this.state.value;
+		var currentResult = "";
+		for (var key in resultValue) {
+		  if (resultValue.hasOwnProperty(key)) {
+				currentResult += key + " -> " + resultValue[key] + "\n";
+			  console.log(key + " -> " + resultValue[key]);
+		  }
+		}
+		this.setState({
+			result : currentResult
+		})
+		event.preventDefault();
+   }
 
-	}
 
 	handleSimpleValueChange(event){
-		var valueObject = this.state.value;
-		valueObject[event.target.name] = event.target.value;
-		this.setState={
-			value : valueObject
-		}
-		console.log(this.state.value);
+		var name = event.target.name;
+		var value = event.target.value;
+		console.log(name);
+		this.setState((prevState)=>{
+			var valueObject = prevState.value;
+		 	valueObject[name] = value;
+			return  {	value : valueObject};
+		});
 	}
 
   render() {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>{this.props.title}</h1>
-					<div>
-						<TextArea name="submitValue" text="Textarea to display submitted value." handleChange={this.handleSimpleValueChange}></TextArea>
-						<TextArea name="changeValue" text="Textarea to display changed value" handleChange={this.handleSimpleValueChange}></TextArea>
-					</div>
-						<Dropdown name="dropdown" text="A" options={dropdownOptions} handleChange={this.handleSimpleValueChange}></Dropdown>
-            <InputBox name={this.state.name} text={this.state.value[this.state.name]} label="Demo :" handleChange={this.handleSimpleValueChange}/>
-        </div>
+					<h1>{this.props.title}</h1>
+					<form onSubmit={this.handleSubmit}>
+
+						<div>
+							<TextArea name="submitValue" text={this.state.result} handleChange={this.handleSimpleValueChange}></TextArea>
+						</div>
+						<Dropdown name="dropdown" text={this.state.value["dropdown"]} options={dropdownOptions} handleChange={this.handleSimpleValueChange}></Dropdown>
+						<InputBox name={this.state.name} text={this.state.value[this.state.name]} label="Demo :" handleChange={this.handleSimpleValueChange}/>
+						<input type="submit" value="Submit" />
+					</form>
+			  </div>
       </div>
     );
   }

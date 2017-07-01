@@ -6,11 +6,14 @@ class Dropdown extends React.Component {
 		this.state={
 			value: ""
 		};
+		this.handleOnChange = this.handleOnChange.bind(this);
 	};
 
-		test(){
-			console.log("test");
-		}
+
+	handleOnChange(e){
+		this.props.handleChange(e);
+	}
+
 
 	 prepareOptionsList(){
 		 const values = this.props.options;
@@ -22,7 +25,7 @@ class Dropdown extends React.Component {
 
 	render(){
 		return(
-			<select value={this.props.text}>
+			<select onChange={this.handleOnChange} name={this.props.name} value={this.props.text}>
 			{this.prepareOptionsList()}
 			</select>
 

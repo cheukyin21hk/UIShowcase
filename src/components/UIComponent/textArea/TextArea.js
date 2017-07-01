@@ -22,7 +22,6 @@ class TextArea extends React.Component {
 	render() {
 		return (
           <textarea className={s.general}rows="4" cols="50" value={this.props.text}>
-
           </textarea>
 			);
 	};

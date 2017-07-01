@@ -27,7 +27,7 @@ export default {
     //add by Chris
     require('./componentForm').default,
     require('./uiShowroom').default,
-
+    
     // Wildcard routes, e.g. { path: '*', ... } (must go last)
     require('./notFound').default,
   ],
